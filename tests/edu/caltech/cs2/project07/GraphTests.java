@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Tag("C")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class GraphTests {
-    private static final String GRAPH_SOURCE = "src/edu/caltech/cs2/edu.caltech.cs2.datastructures/Graph.java";
+    private static final String GRAPH_SOURCE = "src/edu/caltech/cs2/datastructures/Graph.java";
     private static final int SIMPLE_OP_TIMEOUT_MS = 300;
     private static final int MEDIUM_OP_TIMEOUT_MS = 500;
     private static final int STRESS_OP_TIMEOUT_MS = 2200;

@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BeavermapTests {
-    private static String BEAVERMAP_GRAPH_SOURCE = "src/edu/caltech/cs2/edu.caltech.cs2.datastructures/BeaverMapsGraph.java";
+    private static String BEAVERMAP_GRAPH_SOURCE = "src/edu/caltech/cs2/datastructures/BeaverMapsGraph.java";
 
     private static JsonElement fromFile(String filename) {
         try (FileReader reader = new FileReader(filename)) {

@@ -113,10 +113,8 @@ public class BeaverMapsGraph extends Graph<Long, Double> {
      * @return the JSON data from filename
      */
     private static JsonElement fromFile(String filename) {
-//        try (FileReader reader = new FileReader(filename)) {
-//            return JsonParser.parseReader(reader);
-        try {
-            return JSON_PARSER.parse(new FileReader(filename));
+        try (FileReader reader = new FileReader(filename)) {
+            return JsonParser.parseReader(reader);
         } catch (IOException e) {
             return null;
         }

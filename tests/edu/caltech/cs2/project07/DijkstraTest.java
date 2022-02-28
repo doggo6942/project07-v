@@ -31,7 +31,7 @@ public class DijkstraTest {
     public void dijkstraShortTripTest() {
         IDeque<Location> res = GraphMaker.transformToLocations(GraphMaker.completeGraph(10)).dijkstra(new Location(1), new Location(1));
         assertEquals(1, res.size(), "Path from a node to itself should only include the node once");
-        assertEquals(res.peek(), new Location(1), "Path from a node to itself should only include the node once");
+        assertEquals(new Location(1), res.peek(), "Path from a node to itself should only include the node once");
     }
 
     @Order(1)

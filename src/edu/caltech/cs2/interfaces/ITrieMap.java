@@ -13,7 +13,7 @@ public interface ITrieMap<A, K extends Iterable<A>, V> extends IDictionary<K, V>
      * @param prefix the prefix to search for in the trie
      * @return the values corresponding to the keys starting with the given prefix
      */
-    public IDeque<V> getCompletions(K prefix);
+    public ICollection<V> getCompletions(K prefix);
 
     /**
      * Removes all elements from the trie.

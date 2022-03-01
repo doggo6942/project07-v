@@ -3,6 +3,7 @@ package edu.caltech.cs2.project07;
 import edu.caltech.cs2.datastructures.LinkedDeque;
 import edu.caltech.cs2.datastructures.Location;
 import edu.caltech.cs2.datastructures.TrieMap;
+import edu.caltech.cs2.interfaces.ICollection;
 import edu.caltech.cs2.interfaces.IDeque;
 import edu.caltech.cs2.interfaces.ISet;
 import edu.caltech.cs2.interfaces.ITrieMap;
@@ -93,7 +94,7 @@ public class MapsAutoCompleter {
         String[] keyPath = term.strip().toLowerCase().split("\\s");
         IDeque<String> kpIterable = listFromArray(keyPath);
 
-        IDeque<IDeque<Location>> options = locs.getCompletions(kpIterable);
+        ICollection<IDeque<Location>> options = locs.getCompletions(kpIterable);
         options.addAll(locs.getCompletions(charArrToStringIterable(term.toLowerCase().toCharArray())));
 
         Set<Long> opts = new HashSet<>();

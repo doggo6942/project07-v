@@ -15,6 +15,16 @@ public interface ICollection<E> extends Iterable<E> {
   public void add(E e);
 
   /**
+   * Adds a collection of elements to this collection.
+   * @param c Collection of elements to add
+   */
+  default public void addAll(ICollection<E> c) {
+    for (E e : c) {
+      this.add(e);
+    }
+  }
+
+  /**
    * Removes all elements from the collection.
    */
   public void clear();

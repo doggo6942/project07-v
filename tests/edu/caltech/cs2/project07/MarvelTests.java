@@ -1,7 +1,10 @@
 package edu.caltech.cs2.project07;
 
 import edu.caltech.cs2.datastructures.Graph;
+import edu.caltech.cs2.helpers.DependsOn;
+import edu.caltech.cs2.helpers.TestDescription;
 import edu.caltech.cs2.helpers.TestExtension;
+import edu.caltech.cs2.helpers.TestHint;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.collection.IsIterableContainingInAnyOrder;
 import org.junit.jupiter.api.*;
@@ -57,6 +60,8 @@ public class MarvelTests {
     @Test
     @Order(0)
     @DisplayName("Test that characters with no co-appearances do not have neighbors - neighbor isEmpty")
+    @TestDescription("This is a functionality test")
+    @DependsOn({"vertices", "neighbors"})
     public void testSingletons() {
         List<String> singletons = new ArrayList<>();
         for (String c : MARVEL_GRAPH.vertices()) {
@@ -70,6 +75,8 @@ public class MarvelTests {
     @Test
     @Order(1)
     @DisplayName("Look for characters that appear with many other characters - neighbor size")
+    @TestDescription("This is a functionality test")
+    @DependsOn({"vertices", "neighbors"})
     public void testPopular() {
         List<String> populars = new ArrayList<>();
         for (String c : MARVEL_GRAPH.vertices()) {
@@ -83,6 +90,8 @@ public class MarvelTests {
     @Test
     @Order(2)
     @DisplayName("Test that there are no loops (self-edges) in the graph")
+    @TestDescription("This is a functionality test")
+    @DependsOn({"vertices", "adjacent"})
     public void testNoLoops() {
         for (String c : MARVEL_GRAPH.vertices()) {
             assertNull(MARVEL_GRAPH.adjacent(c, c),
@@ -95,6 +104,11 @@ public class MarvelTests {
     @Test
     @Order(3)
     @DisplayName("Look for co-appearances that appear in many issues together - edge weights")
+    @TestDescription("This is a functionality test")
+    @TestHint("If your test is timing out, make sure that A. You are not calling  containsKey() in any function except when checking for " +
+            "exceptions or to see if a vertex already exists in addVertex, and B. you are using a backing data structure that supports lookup " +
+            "in O(1) time - things like ArrayDeque or MoveToFrontDictionary will have an O(n) time lookup")
+    @DependsOn({"vertices", "neighbors", "adjacent", "removeEdge"})
     public void testCommon() {
         Assertions.assertTimeout(Duration.ofMillis(COMMON_TIMEOUT_MS), this::runCommon);
     }

@@ -1,5 +1,5 @@
 package edu.caltech.cs2.project07;
-import edu.caltech.cs2.helpers.TestHint;
+import edu.caltech.cs2.helpers.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.google.gson.JsonArray;
@@ -8,9 +8,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import edu.caltech.cs2.datastructures.BeaverMapsGraph;
 import edu.caltech.cs2.datastructures.Location;
-import edu.caltech.cs2.helpers.Inspection;
-import edu.caltech.cs2.helpers.Reflection;
-import edu.caltech.cs2.helpers.TestExtension;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -50,6 +47,8 @@ public class BeavermapTests {
     @Tag("C")
     @Tag("Beavermap")
     @DisplayName("BeaverMapsGraph implements required public methods")
+    @TestDescription("This test checks that you have implemented the required public methods.")
+    @TestHint("Make sure all the methods are sufficiently filled out!")
     @Test
     @Order(0)
     public void testMethodsBeaverMapsGraph() {
@@ -78,6 +77,8 @@ public class BeavermapTests {
 
     @Order(2)
     @DisplayName("Does not use or import disallowed classes from java.util")
+    @TestDescription("This is a style test")
+    @TestHint("You should not be importing any class beside java.util")
     @Test
     @Tag("C")
     @Tag("Beavermap")
@@ -96,6 +97,15 @@ public class BeavermapTests {
     @Test
     @Order(3)
     @DisplayName("Test getLocationById()")
+    @TestDescription("This is a functionality test")
+    @TestHint("Make sure that when you add a vertex of a location to your graph, you also add its id mapping" +
+            " to the full Location in this.ids. You should maintain the invariant in your code that vertices" +
+            " have the ids of locations as data, and the full locations can be accessed for every vertex by" +
+            " calling get(id) on this.ids\n" +
+            "If you are facing errors parsing roads, make sure you are using .getAsLong() method instead " +
+            "of .getAsJsonObject() to process the road locations since the roads are given as an array of array" +
+            " of longs representing location ids")
+    @DependsOn({"constructor", "getLocationByID"})
     public void testGetLocationByID() {
         BeaverMapsGraph bmg = new BeaverMapsGraph(
                 "data/caltech/caltech.buildings.json",
@@ -113,6 +123,11 @@ public class BeavermapTests {
     @Test
     @Order(4)
     @DisplayName("Test getLocationByName()")
+    @TestDescription("This is a functionality test")
+    @TestHint("If you are facing errors parsing roads, make sure you are using .getAsLong() method instead " +
+            "of .getAsJsonObject() to process the road locations since the roads are given as an array of array" +
+            " of longs representing location ids")
+    @DependsOn({"constructor", "getLocationByName"})
     public void testGetLocationByName() {
         BeaverMapsGraph bmg = new BeaverMapsGraph(
                 "data/caltech/caltech.buildings.json",
@@ -130,6 +145,11 @@ public class BeavermapTests {
     @Tag("C")
     @Tag("Beavermap")
     @DisplayName("Test getBuildings()")
+    @TestDescription("This is a functionality test")
+    @TestHint("If you are facing errors parsing roads, make sure you are using .getAsLong() method instead " +
+            "of .getAsJsonObject() to process the road locations since the roads are given as an array of array" +
+            " of longs representing location ids")
+    @DependsOn({"constructor", "getBuildings"})
     @ParameterizedTest(name = "Test getBuildings() on {0}")
     @CsvSource({
             "caltech/caltech.buildings.json, caltech/caltech.waypoints.json, caltech/caltech.roads.json",
@@ -152,6 +172,11 @@ public class BeavermapTests {
     @Tag("C")
     @Tag("Beavermap")
     @DisplayName("Test getClosestBuilding()")
+    @TestDescription("This is a functionality test")
+    @TestHint("If you are stuck in an infinite loop, please verify that your ChainingHashDictionary contains" +
+            " framework to be resizeable past 400k, either by giving it more prime capacities or by writing code" +
+            " to double the length if we have exhausted all primes")
+    @DependsOn({"constructor", "getLocationByID", "getClosestBuilding"})
     @ParameterizedTest(name = "Test getClosestBuilding() on {0}")
     @CsvSource({
             "caltech/caltech.buildings.json, caltech/caltech.waypoints.json, caltech/caltech.roads.json, caltech/caltech.closest_trace.json",
@@ -175,6 +200,9 @@ public class BeavermapTests {
     @Tag("C")
     @Tag("Beavermap")
     @DisplayName("Test addVertex() updates BeaverMapsGraph and underlying Graph properly")
+    @TestDescription("This is a functionality test")
+    @TestHint("Make sure adding the vertex also updates the ids map!")
+    @DependsOn({"constructor", "getLocationByID", "addVertex"})
     @Test
     @Order(7)
     public void testAddVertexBeaverMapsGraph() {
@@ -196,6 +224,8 @@ public class BeavermapTests {
     @Tag("C")
     @Tag("Beavermap")
     @DisplayName("Completely check all nodes and edges in BeaverMapsGraph loaded from files")
+    @TestDescription("This is a functionality test")
+    @DependsOn({"constructor", "getLocationByID", "vertices", "neighbors"})
     @ParameterizedTest(name = "Test nodes in file {0}")
     @CsvSource({
             "caltech/caltech.buildings.json, caltech/caltech.waypoints.json, caltech/caltech.roads.json, caltech/caltech.neighbors_trace.json"
@@ -241,6 +271,11 @@ public class BeavermapTests {
 
     @Tag("B")
     @DisplayName("Test DFS radius search")
+    @TestDescription("This is a functionality test")
+    @TestHint("If you are stuck in an infinite loop, please verify that your ChainingHashDictionary contains" +
+            " framework to be resizeable past 400k, either by giving it more prime capacities or by writing code" +
+            " to double the length if we have exhausted all primes")
+    @DependsOn({"constructor", "getLocationByID", "dfs"})
     @ParameterizedTest(name = "Test DFS on graph {0}")
     @CsvSource({
             "caltech/caltech.buildings.json, caltech/caltech.waypoints.json, caltech/caltech.roads.json, caltech/caltech.radius_trace.json",
@@ -277,6 +312,10 @@ public class BeavermapTests {
 
     @Tag("A")
     @DisplayName("Test buildings are ignored in dijkstra path")
+    @TestDescription("This is a functionality test")
+    @TestHint("Be sure that when you construct your final path, you are making it in the correct order. " +
+            "The path should begin with the start vertex and end with the target vertex.")
+    @DependsOn({"constructor", "getLocationByID", "dijkstra"})
     @Test
     @Order(10)
     public void testDijkstraIgnoreBuildings() {
@@ -306,6 +345,12 @@ public class BeavermapTests {
 
     @Tag("A")
     @DisplayName("Test Dijkstra")
+    @TestDescription("This is a functionality test")
+    @TestHint("Be sure that when you construct your final path, you are making it in the correct order. " +
+            "The path should begin with the start vertex and end with the target vertex.\n" +
+            "Make sure you are finding the distances between adjacent locations correctly (check FAQs for more!)" +
+            " and that when you travel your road, you are grabbing the locations you want.")
+    @DependsOn({"constructor", "getLocationByID", "dijkstra"})
     @ParameterizedTest(name = "Test Dijkstra on graph {0}")
     @CsvSource({
             "caltech/caltech.buildings.json, caltech/caltech.waypoints.json, caltech/caltech.roads.json, caltech/caltech.paths_trace.json",

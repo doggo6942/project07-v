@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import edu.caltech.cs2.datastructures.Graph;
-import edu.caltech.cs2.helpers.Inspection;
-import edu.caltech.cs2.helpers.TestExtension;
+import edu.caltech.cs2.helpers.*;
 import edu.caltech.cs2.interfaces.IGraph;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.collection.IsIterableContainingInAnyOrder;
@@ -27,6 +26,8 @@ public class GraphTests {
 
     @Order(0)
     @DisplayName("Does not use or import disallowed classes")
+    @TestDescription("This is a style test")
+    @TestHint("You should not be importing any class beside java.util")
     @Test
     public void testForInvalidClasses() {
         List<String> graphDisallow = List.of("java\\.io", "java\\.lang\\.reflect");
@@ -36,6 +37,8 @@ public class GraphTests {
 
     @Order(1)
     @DisplayName("Does not use or import disallowed classes from java.util")
+    @TestDescription("This is a style test")
+    @TestHint("Remember that you're not allowed to use anything in java.util except Iterator!")
     @Test
     public void testForInvalidImportsJavaUtil() {
         List<String> allowed = List.of("Iterator");
@@ -47,6 +50,14 @@ public class GraphTests {
 
     @Order(2)
     @DisplayName("Test empty graph")
+    @TestDescription("This is a functionality test")
+    @DependsOn({"constructor", "vertices"})
+    @TestHint("There should be no vertices or edges in an empty graph\n" +
+            "If your test is timing out, make sure that A. You are not calling  " +
+            "containsKey() in any function except when checking for exceptions or to " +
+            "see if a vertex already exists in addVertex, and B. you are using a backing " +
+            "data structure that supports lookup in O(1) time - things like ArrayDeque or " +
+            "MoveToFrontDictionary will have an O(n) time lookup")
     @Test
     public void emptyGraphTest() {
         IGraph<String, String> g = new Graph<>();
@@ -58,6 +69,12 @@ public class GraphTests {
     @Test
     @Order(3)
     @DisplayName("Test creating various graphs")
+    @TestDescription("This is a functionality test - this creates different types of graphs and verifies their functionality")
+    @TestHint("Also, in addVertex, make sure you account for the case where the vertex already exists in the graph\n" +
+            "If your test is timing out, make sure that A. You are not calling  containsKey() in any function except when checking for " +
+            "exceptions or to see if a vertex already exists in addVertex, and B. you are using a backing data structure that supports lookup " +
+            "in O(1) time - things like ArrayDeque or MoveToFrontDictionary will have an O(n) time lookup")
+    @DependsOn({"constructor", "addVertex", "addEdge", "adjacent"})
     public void creationTest() {
         assertTimeout(Duration.ofMillis(MEDIUM_OP_TIMEOUT_MS), () -> {
             GraphMaker.simpleGraph();
@@ -73,6 +90,11 @@ public class GraphTests {
      */
     @Order(3)
     @DisplayName("Test creating a small directed graph")
+    @TestDescription("This is a functionality test")
+    @TestHint("If your test is timing out, make sure that A. You are not calling  containsKey() in any function except when checking for " +
+            "exceptions or to see if a vertex already exists in addVertex, and B. you are using a backing data structure that supports lookup " +
+            "in O(1) time - things like ArrayDeque or MoveToFrontDictionary will have an O(n) time lookup")
+    @DependsOn({"constructor", "addVertex", "addEdge", "adjacent", "vertices"})
     @Test
     public void secondCreateTest() {
         IGraph<String, Integer> g = new Graph<>();
@@ -103,6 +125,9 @@ public class GraphTests {
     @Order(4)
     @Test
     @DisplayName("Adding an edge with both endpoints missing should fail")
+    @TestDescription("This is a functionality test")
+    @TestHint("Make sure you are throwing an exception when addEdge is called with empty argument(s)")
+    @DependsOn({"constructor", "addEdge"})
     public void addIllegalEdgeTest() {
         // Test adding edge where neither src, dest exists
         IGraph<String, Integer> g = new Graph<>();
@@ -112,6 +137,9 @@ public class GraphTests {
     @Test
     @Order(4)
     @DisplayName("Adding an edge with dest missing should fail")
+    @TestDescription("This is a functionality test")
+    @TestHint("Make sure you are throwing an exception when addEdge is called with empty argument(s)")
+    @DependsOn({"constructor", "addEdge", "addVertex"})
     public void addIllegalEdgeTest2() {
         // Test adding edge where dest does not exist
         IGraph<String, Integer> g = new Graph<>();
@@ -122,6 +150,9 @@ public class GraphTests {
     @Test
     @Order(4)
     @DisplayName("Adding an edge with src missing should fail")
+    @TestDescription("This is a functionality test")
+    @TestHint("Make sure you are throwing an exception when addEdge is called with empty argument(s)")
+    @DependsOn({"constructor", "addEdge", "addVertex"})
     public void addIllegalEdgeTest3() {
         // Test adding edge where src does not exist
         IGraph<String, Integer> g = new Graph<>();
@@ -132,6 +163,11 @@ public class GraphTests {
     @Test
     @Order(5)
     @DisplayName("Test building a simple graph with edges and failures to add edges")
+    @TestDescription("This is a functionality test")
+    @TestHint("If your test is timing out, make sure that A. You are not calling  containsKey() in any function except when checking for " +
+            "exceptions or to see if a vertex already exists in addVertex, and B. you are using a backing data structure that supports lookup " +
+            "in O(1) time - things like ArrayDeque or MoveToFrontDictionary will have an O(n) time lookup")
+    @DependsOn({"constructor", "addVertex", "addEdge", "adjacent", "vertices"})
     public void simpleAddTest() {
         assertTimeout(Duration.ofMillis(SIMPLE_OP_TIMEOUT_MS), () -> {
             IGraph<String, Integer> g = new Graph<>();
@@ -166,6 +202,11 @@ public class GraphTests {
     @Test
     @Order(6)
     @DisplayName("Test removing edges from the graph")
+    @TestDescription("This is a functionality test")
+    @TestHint("If your test is timing out, make sure that A. You are not calling  containsKey() in any function except when checking for " +
+            "exceptions or to see if a vertex already exists in addVertex, and B. you are using a backing data structure that supports lookup " +
+            "in O(1) time - things like ArrayDeque or MoveToFrontDictionary will have an O(n) time lookup")
+    @DependsOn({"constructor", "addVertex", "addEdge", "adjacent", "removeEdge"})
     public void simpleRemoveTest() {
         assertTimeout(Duration.ofMillis(SIMPLE_OP_TIMEOUT_MS), () -> {
             IGraph<String, Integer> g = new Graph<>();
@@ -182,6 +223,11 @@ public class GraphTests {
     @Test
     @Order(7)
     @DisplayName("Test removing edges from the graph again")
+    @TestDescription("This is a functionality test")
+    @TestHint("If your test is timing out, make sure that A. You are not calling  containsKey() in any function except when checking for " +
+            "exceptions or to see if a vertex already exists in addVertex, and B. you are using a backing data structure that supports lookup " +
+            "in O(1) time - things like ArrayDeque or MoveToFrontDictionary will have an O(n) time lookup")
+    @DependsOn({"constructor", "addVertex", "addEdge", "adjacent", "removeEdge"})
     public void stringEdgeTest() {
         assertTimeout(Duration.ofMillis(SIMPLE_OP_TIMEOUT_MS), () -> {
             IGraph<Integer, Integer> g = new Graph<>();
@@ -207,6 +253,11 @@ public class GraphTests {
     @Test
     @Order(8)
     @DisplayName("Test that all edges in a complete graph are present")
+    @TestDescription("This is a stress test")
+    @TestHint("If your test is timing out, make sure that A. You are not calling  containsKey() in any function except when checking for " +
+            "exceptions or to see if a vertex already exists in addVertex, and B. you are using a backing data structure that supports lookup " +
+            "in O(1) time - things like ArrayDeque or MoveToFrontDictionary will have an O(n) time lookup")
+    @DependsOn({"constructor", "addVertex", "addEdge", "adjacent"})
     public void adjacentStressTest() {
         assertTimeout(Duration.ofMillis(STRESS_OP_TIMEOUT_MS), () -> {
             IGraph<Integer, Integer> g = GraphMaker.completeGraph(400);
@@ -220,6 +271,11 @@ public class GraphTests {
     @Test
     @Order(9)
     @DisplayName("Test that directed edges in a tournament graph are correct")
+    @TestDescription("This is a functionality test")
+    @TestHint("If your test is timing out, make sure that A. You are not calling  containsKey() in any function except when checking for " +
+            "exceptions or to see if a vertex already exists in addVertex, and B. you are using a backing data structure that supports lookup " +
+            "in O(1) time - things like ArrayDeque or MoveToFrontDictionary will have an O(n) time lookup")
+    @DependsOn({"constructor", "addVertex", "addEdge", "adjacent", "neighbors"})
     public void testNeighbors() {
         assertTimeout(Duration.ofMillis(SIMPLE_OP_TIMEOUT_MS), () -> {
             IGraph<Integer, Integer> g = GraphMaker.tournamentGraph(10);
@@ -237,6 +293,12 @@ public class GraphTests {
     @Test
     @Order(10)
     @DisplayName("Test adding undirected edges")
+    @TestDescription("This is a functionality test")
+    @TestHint("Make sure you are adding edges in both directions to make an undirected edge\n" +
+            "If your test is timing out, make sure that A. You are not calling  containsKey() in any function except when checking for " +
+            "exceptions or to see if a vertex already exists in addVertex, and B. you are using a backing data structure that supports lookup " +
+            "in O(1) time - things like ArrayDeque or MoveToFrontDictionary will have an O(n) time lookup")
+    @DependsOn({"constructor", "addVertex", "addEdge", "adjacent", "addUndirectedEdge", "vertices"})
     public void undirectedEdgeTest() {
         assertTimeout(Duration.ofMillis(SIMPLE_OP_TIMEOUT_MS), () -> {
             IGraph<String, Integer> g = new Graph<>();

@@ -7,13 +7,16 @@ import java.util.Set;
 
 import edu.caltech.cs2.datastructures.Graph;
 import edu.caltech.cs2.helpers.Inspection;
+import edu.caltech.cs2.helpers.TestExtension;
 import edu.caltech.cs2.interfaces.IGraph;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.collection.IsIterableContainingInAnyOrder;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(TestExtension.class)
 @Tag("C")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class GraphTests {

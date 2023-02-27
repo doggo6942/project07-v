@@ -1,4 +1,6 @@
 package edu.caltech.cs2.project07;
+import edu.caltech.cs2.helpers.TestHint;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -8,6 +10,7 @@ import edu.caltech.cs2.datastructures.BeaverMapsGraph;
 import edu.caltech.cs2.datastructures.Location;
 import edu.caltech.cs2.helpers.Inspection;
 import edu.caltech.cs2.helpers.Reflection;
+import edu.caltech.cs2.helpers.TestExtension;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -30,6 +33,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(TestExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BeavermapTests {
     private static String BEAVERMAP_GRAPH_SOURCE = "src/edu/caltech/cs2/datastructures/BeaverMapsGraph.java";

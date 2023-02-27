@@ -4,10 +4,13 @@ import edu.caltech.cs2.datastructures.BeaverMapsGraph;
 import edu.caltech.cs2.datastructures.Graph;
 import edu.caltech.cs2.datastructures.Location;
 import edu.caltech.cs2.helpers.Reflection;
+import edu.caltech.cs2.helpers.TestExtension;
 import edu.caltech.cs2.interfaces.IDeque;
 import edu.caltech.cs2.interfaces.IGraph;
 
+
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -21,6 +24,7 @@ import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(TestExtension.class)
 @Tag("A")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class DijkstraTest {

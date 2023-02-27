@@ -1,9 +1,11 @@
 package edu.caltech.cs2.project07;
 
 import edu.caltech.cs2.datastructures.Graph;
+import edu.caltech.cs2.helpers.TestExtension;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.collection.IsIterableContainingInAnyOrder;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,6 +14,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(TestExtension.class)
 @Tag("C")
 @DisplayName("Test graph of shared appearances in Marvel comic books (MarvelTests)")
 public class MarvelTests {

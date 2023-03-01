@@ -78,7 +78,7 @@ public class BeaverMapsGraph extends Graph<Long, Double> {
      * Returns a set of locations which are reachable along a path that goes no further than `threshold` feet from start
      * @param start the location to search around
      * @param threshold the number of feet in the search radius
-     * @return
+     * @return all locations within the provided `threshold` feet from start
      */
     public ISet<Location> dfs(Location start, double threshold) {
         // TODO (student): Write This

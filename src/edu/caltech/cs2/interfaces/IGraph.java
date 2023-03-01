@@ -9,7 +9,7 @@ public interface IGraph<V, E> {
     public boolean addVertex(V vertex);
 
     /**
-     * Adds edge e to the graph.
+     * Adds a directed edge e to the graph.
      *
      * @param e The edge to add.
      * @throws IllegalArgumentException

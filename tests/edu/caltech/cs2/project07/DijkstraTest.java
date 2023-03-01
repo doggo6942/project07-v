@@ -3,8 +3,7 @@ package edu.caltech.cs2.project07;
 import edu.caltech.cs2.datastructures.BeaverMapsGraph;
 import edu.caltech.cs2.datastructures.Graph;
 import edu.caltech.cs2.datastructures.Location;
-import edu.caltech.cs2.helpers.Reflection;
-import edu.caltech.cs2.helpers.TestExtension;
+import edu.caltech.cs2.helpers.*;
 import edu.caltech.cs2.interfaces.IDeque;
 import edu.caltech.cs2.interfaces.IGraph;
 
@@ -31,6 +30,10 @@ public class DijkstraTest {
 
     @Order(0)
     @DisplayName("Loop path should be singleton")
+    @TestDescription("This is a functionality test")
+    @TestHint("Be sure that when you construct your final path, you are making it in the correct order. " +
+            "The path should begin with the start vertex and end with the target vertex.")
+    @DependsOn({"constructor", "addVertex", "addEdge", "dijkstra"})
     @Test
     public void dijkstraShortTripTest() {
         IDeque<Location> res = GraphMaker.transformToLocations(GraphMaker.completeGraph(10)).dijkstra(new Location(1), new Location(1));
@@ -40,6 +43,10 @@ public class DijkstraTest {
 
     @Order(1)
     @DisplayName("Disconnected graph should not have a path")
+    @TestDescription("This is a functionality test")
+    @TestHint("Be sure that when you construct your final path, you are making it in the correct order. " +
+            "The path should begin with the start vertex and end with the target vertex.")
+    @DependsOn({"constructor", "addVertex", "addEdge", "dijkstra"})
     @Test
     public void dijkstraDisconnectedTest() {
         IDeque<Location> res = GraphMaker.transformToLocations(GraphMaker.disjointCompleteGraphs(10)).dijkstra(new Location(1), new Location(9));
@@ -49,6 +56,10 @@ public class DijkstraTest {
     @Order(2)
     @ParameterizedTest(name = "Graph: {0}, start: {1}, end: {2}, trace file: {3}")
     @DisplayName("Tests correctness of Dijkstra implementation")
+    @TestDescription("This is a smoke test")
+    @TestHint("Be sure that when you construct your final path, you are making it in the correct order. " +
+            "The path should begin with the start vertex and end with the target vertex.")
+    @DependsOn({"constructor", "addVertex", "addEdge", "dijkstra"})
     @CsvSource({
             "simpleGraph, 1, 3, simple_1_3",
             "linearGraph, 0, 1, line_0_1",
@@ -100,6 +111,10 @@ public class DijkstraTest {
 
     @Order(3)
     @DisplayName("Tests Dijkstra on random graph and paths")
+    @TestDescription("This is a stress test")
+    @TestHint("Be sure that when you construct your final path, you are making it in the correct order. " +
+            "The path should begin with the start vertex and end with the target vertex.")
+    @DependsOn({"constructor", "addVertex", "addEdge", "removeEdge", "adjacent", "dijkstra"})
     @Test
     public void dijkstraStressTest() throws FileNotFoundException {
         final int num_tests = 1000;

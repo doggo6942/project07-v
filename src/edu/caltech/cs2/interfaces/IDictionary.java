@@ -100,7 +100,7 @@ public interface IDictionary<K, V> extends Iterable<K> {
     default public ICollection<Entry<K, V>> entrySet() {
         IDeque<Entry<K, V>> entries = new LinkedDeque<>();
         for (K key : keys()) {
-            entries.add(new Entry(key, this.get(key)));
+            entries.add(new Entry<>(key, this.get(key)));
         }
         return entries;
     }

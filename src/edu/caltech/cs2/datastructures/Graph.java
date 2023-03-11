@@ -1,6 +1,6 @@
 package edu.caltech.cs2.datastructures;
 
-import edu.caltech.cs2.interfaces.ICollection;
+
 import edu.caltech.cs2.interfaces.IDictionary;
 import edu.caltech.cs2.interfaces.IGraph;
 import edu.caltech.cs2.interfaces.ISet;
@@ -25,7 +25,7 @@ public class Graph<V, E> implements IGraph<V, E> {
             return false;
         }
         // Otherwise, add a new dictionary to the adjacency map for the new vertex.
-        this.adjacencyMap.put(vertex, new MoveToFrontDictionary<>());
+        this.adjacencyMap.put(vertex, new ChainingHashDictionary<>(MoveToFrontDictionary::new));
         return true;
         //return false;
     }
@@ -35,9 +35,9 @@ public class Graph<V, E> implements IGraph<V, E> {
 
         if (!this.adjacencyMap.containsKey(src) || !this.adjacencyMap.containsKey(dest)) {
             // If either the source or destination vertex doesn't exist, return false.
-            throw new IllegalArgumentException("Destination is required");
+            throw new IllegalArgumentException("dne");
         }
-        if(this.adjacencyMap.get(src).containsKey(dest)){
+        if(this.adjacencyMap.get(src).get(dest) != null){
             this.adjacencyMap.get(src).put(dest, e);
             return false;
         }
@@ -52,12 +52,12 @@ public class Graph<V, E> implements IGraph<V, E> {
 
         if (!this.adjacencyMap.containsKey(n1) || !this.adjacencyMap.containsKey(n2)) {
             // If either of the vertices doesn't exist, return false.
-            throw new IllegalArgumentException("Destination is required");
+            throw new IllegalArgumentException("dne");
             //return false;
         }
-        if (!this.adjacencyMap.get(n1).containsKey(n2) && !this.adjacencyMap.get(n2).containsKey(n1)) {
-
-            // Add the new edge to both vertices' dictionaries of neighbors.
+        if (this.adjacencyMap.get(n1).get(n2) == null && this.adjacencyMap.get(n2).get(n1) == null) {
+            //!this.adjacencyMap.get(n1).containsKey(n2)
+             //Add the new edge to both vertices' dictionaries of neighbors.
             this.adjacencyMap.get(n1).put(n2, e);
             this.adjacencyMap.get(n2).put(n1, e);
             return true;
@@ -75,9 +75,10 @@ public class Graph<V, E> implements IGraph<V, E> {
 
         if (!this.adjacencyMap.containsKey(src) || !this.adjacencyMap.containsKey(dest)) {
             // If either the source or destination vertex doesn't exist, return false.
-            throw new IllegalArgumentException("Destination is required");
+            throw new IllegalArgumentException("dne");
         }
-        if(!this.adjacencyMap.get(src).containsKey(dest)){
+        if(this.adjacencyMap.get(src).get(dest) == null){
+            //!this.adjacencyMap.get(src).containsKey(dest)
             //throw new IllegalArgumentException("Edge does not exist");
             return false;
         }
@@ -94,20 +95,21 @@ public class Graph<V, E> implements IGraph<V, E> {
 
     @Override
     public E adjacent(V i, V j) {
-        if (!this.adjacencyMap.containsKey(i) || !this.adjacencyMap.containsKey(j)) {
+      //  if (!this.adjacencyMap.containsKey(i) || !this.adjacencyMap.containsKey(j)) {
             // If either the source or destination vertex doesn't exist, return null.
-            return null;
-        }
+       //     return null;
+      //  }
+        //uncomment
         // Return the edge corresponding to the neighbor j of vertex i.
         return this.adjacencyMap.get(i).get(j);
     }
 
     @Override
     public ISet<V> neighbors(V vertex) {
-        if (!this.adjacencyMap.containsKey(vertex)) {
+      //  if (!this.adjacencyMap.containsKey(vertex)) {
             // If the vertex doesn't exist, return null.
-            return null;
-        }
+        //    return null;
+      //  }
         // Return an ISet of all keys in the inner dictionary corresponding to the vertex's neighbors.
         return this.adjacencyMap.get(vertex).keySet();
     }

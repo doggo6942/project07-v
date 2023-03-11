@@ -4,8 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import edu.caltech.cs2.interfaces.*;
-
-import java.awt.*;
 import java.io.FileReader;
 import java.io.IOException;
 

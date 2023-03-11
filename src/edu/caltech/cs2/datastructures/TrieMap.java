@@ -1,6 +1,11 @@
 package edu.caltech.cs2.datastructures;
 
-import edu.caltech.cs2.interfaces.*;
+import edu.caltech.cs2.interfaces.ITrieMap;
+import edu.caltech.cs2.interfaces.IDeque;
+import edu.caltech.cs2.interfaces.ICollection;
+import edu.caltech.cs2.interfaces.IQueue;
+import edu.caltech.cs2.interfaces.IStack;
+
 
 import java.util.HashMap;
 import java.util.Map;

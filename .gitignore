@@ -65,6 +65,4 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 
-# Big data files that shouldn't be committed on accident
-**/caltech.osm
-**/pasadena.osm
+data/*
